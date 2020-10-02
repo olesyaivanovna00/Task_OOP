@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
+    private static int numOfPlayers = 0;
     private String name;
     private List<Domino> dominoInHand;
 
     public Player(String name) {
+        numOfPlayers++;
         this.name = name;
         this.dominoInHand = new ArrayList<Domino>();
     }
