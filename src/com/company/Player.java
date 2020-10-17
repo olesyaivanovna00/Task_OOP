@@ -8,6 +8,8 @@ public class Player {
     private static int numOfPlayers = 0;
     private String name;
     private List<Domino> dominoInHand;
+    List<Domino> hand;
+
 
     public Player(String name) {
         numOfPlayers++;
@@ -15,9 +17,9 @@ public class Player {
         this.dominoInHand = new ArrayList<Domino>();
     }
 
-    public String getName() {
-        return name;
-    }
+
+
+    public String getName() { return name; }
 
     public List<Domino> getDominoInHand() {
         return dominoInHand;
@@ -36,13 +38,9 @@ public class Player {
     }
 
     public Domino removeDom(int index){
-
         Domino domino = dominoInHand.get(index);
-
         dominoInHand.remove(index);
-
         return domino;
-
     }
 
     public boolean hasDominoInHand(Domino domino){
@@ -51,18 +49,25 @@ public class Player {
 
 
     public boolean hasPlay(int side){
-
         for (Domino domInHand : dominoInHand){
-
             if( (side == domInHand.getBone1()) || (side == domInHand.getBone2()) ){
                 return true;
             }
-
         }
         return false;
-
     }
-    
+
+    public static int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+    public List<Domino> getHand(){
+        return this.hand;
+    }
+
+    public int numOfDomInHand(){
+        return hand.size();
+    }
 
 
 

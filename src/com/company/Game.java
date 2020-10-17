@@ -30,6 +30,5 @@ public class Game {
             newPack.addToHand(player, 7);
         }
 
-
     }
 }
