@@ -1,4 +1,4 @@
-package com.company;
+package com.company.objects;
 
 public class Domino implements Comparable<Domino>{
 

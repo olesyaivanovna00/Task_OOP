@@ -1,5 +1,9 @@
 package com.company;
 
+import com.company.objects.Board;
+import com.company.objects.Domino;
+import com.company.objects.Player;
+
 public class Test {
 
     public static void playGame(){
@@ -83,37 +87,6 @@ public class Test {
             System.out.println(dom);
         }
 
-        /* Dwayne should have 3 dominos in his hand */
-        System.out.println();
-        System.out.println("Is " + dwayne.getName() + " hand empty? " + dwayne.isHandEmpty()); // should be false;
-
-        /* The number of dominos in each hand */
-        System.out.println();
-        System.out.println(richie.getName() + " has " + richie.numOfDomInHand() + " in their hand."); // should be 2
-        System.out.println(dwayne.getName() + " has " + dwayne.numOfDomInHand() + " in their hand."); // should be 3
-
-        /* Test the hasPlay() method */
-        System.out.println();
-        System.out.println(richie.getName() + " can play a matching domino with a side of " + dom1.getBone1() + "? " + richie.hasPlay(dom1.getBone1())); // should be true
-        System.out.println(dwayne.getName() + " can play a matching domino with a side of " + dom2.getBone1() + "? " + dwayne.hasPlay(dom2.getBone1())); // should be false
-        System.out.println(dwayne.getName() + " can play a matching domino with a side of " + dom3.getBone1() + "? " + dwayne.hasPlay(dom3.getBone1())); // should be true
-
-        /* Check hasDomino() method */
-        System.out.println();
-        System.out.println(dwayne.getName() + " has " + dom3 + " in his hand? " + dwayne.hasDominoInHand(dom3)); // should be true
-        System.out.println(richie.getName() + " has " + dom3 + " in his hand? " + richie.hasDominoInHand(dom3)); // should be false
-
-
-        /* Remove double blank from Dwayne's hand */
-        System.out.println("\nRemoving " + dom3 + " from " + dwayne.getName() + " hand.");
-        dwayne.removeDom(1);
-
-        /* Reprint Dwayne's updated hand */
-        System.out.println();
-        System.out.println(dwayne.getName() + "'s hand:\n");
-        for (Domino dom : dwayne.getHand()) {
-            System.out.println(dom);
-        }
     }
 
 

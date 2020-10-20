@@ -1,34 +1,37 @@
 package com.company;
 
+import com.company.objects.Board;
+import com.company.objects.Player;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
 
 
-    private int numOfPlayers;
-    private List<Player> playerList;
+    private ArrayList<Player> playerList;
+    private Board newBoard;
+    private Pack newPack;
 
-    public Game(int numOfPlayers) {
-        this.numOfPlayers = numOfPlayers;
+    public Game(ArrayList<Player> playerList, Board newBoard, Pack newPack) {
+        this.playerList = playerList;
+        this.newBoard = newBoard;
+        this.newPack = newPack;
     }
 
-    public void startGame(int numOfPlayers){
-        for (int i = 0; i < numOfPlayers; i++) {
-            TextInterface txt = new TextInterface();
-            String name = txt.playerName();
-            playerList.add(new Player(name));
-        }
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
 
+    public Board getNewBoard() {
+        return newBoard;
+    }
 
-        Board newBoard = new Board();
+    public Pack getNewPack() {
+        return newPack;
+    }
 
-        Pack newPack = new Pack();
-
-        newPack.shuffle();
-
-        for(Player player: playerList) {
-            newPack.addToHand(player, 7);
-        }
-
+    public void setPlayerList(ArrayList<Player> playerList) {
+        this.playerList = playerList;
     }
 }

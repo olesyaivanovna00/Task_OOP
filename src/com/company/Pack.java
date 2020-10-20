@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.objects.Domino;
+import com.company.objects.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
