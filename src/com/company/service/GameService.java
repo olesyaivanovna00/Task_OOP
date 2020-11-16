@@ -39,7 +39,6 @@ public class GameService {
 
 
     public void play(Game g) {
-        boolean endGame = false;
 
         Board board = g.getNewBoard();
         Pack pack = g.getNewPack();
@@ -55,9 +54,11 @@ public class GameService {
         boolean skipped;
 
         do {
+
             numOfSkips = 0;
             for (Player p : players) {
-
+                numOfSteps++;
+                System.out.println("\033[1;31m"+  numOfSteps + " ход: " + "\u001B[0m");
 
                 skipped = false;
                 boolean played = false;
@@ -67,32 +68,27 @@ public class GameService {
 
                     addedDomino = step(board, p);
 
+                    System.out.println(p.toString()); //выводим инфорамацию об игроке
+
                     if (addedDomino == null) {
                         if (!pack.getPack().isEmpty()) {
+
                             packService.addToHand(pack, p, 1);
+                            System.out.println(" Игрок" + " \033[1m" + p.getName() + "\u001B[0m" + " взял домино.");
                         } else {
+
                             skipped = true; //пропустил ход
                             numOfSkips++;
 
                         }
                     } else {
+                        System.out.println("Домино " + addedDomino.toString() + " сыграно");
                         played = true;
                     }
                 }
 
-                numOfSteps++;
-                System.out.println("\033[1;31m"+  numOfSteps + " ход: " + "\u001B[0m");
-                System.out.println(p.toString());
 
-                if (!skipped) {
-                    playerService.removeDomino(p, addedDomino);
-                    System.out.println(" Игрок: " + p.getName() + " ходит");
-                } else {
-                    System.out.println(numOfSteps + " ход: " + " Игрок: " + p.getName() + " пропустил ход");
-
-                }
-                System.out.println("\u001B[34m " + board.toString()  + "\u001B[0m");
-                System.out.println("____________");
+                infoAboutGameProcess(numOfSteps, p, board, addedDomino, skipped);
 
                 if (p.getDominoInHand().size() == 0 && pack.getPack().size() == 0){
                     System.out.println("\u001B[31m Игрок " + p.getName() + " победил!" + "\u001B[0m");
@@ -102,20 +98,11 @@ public class GameService {
             }
 
 
-        } while (numOfSkips < players.size());
+        } while (numOfSkips < players.size() || board.getDominoes().size() == packSize);
 
 
-        int min = 8;
-        Player wonPlayer = null;
-        for (Player p: players) {
-            if(p.getDominoInHand().size() < min){
-                min = p.getDominoInHand().size();
-                wonPlayer = p;
-            }
-        }
+        whoWon(players);
 
-        System.out.println("\u001B[31m Игрок " + wonPlayer.getName() + " победил!" + "\u001B[0m");
-        return;
 
 
     }
@@ -154,73 +141,35 @@ public class GameService {
 
     }
 
+    private void infoAboutGameProcess(int numOfSteps, Player p, Board board, Domino addedDomino, boolean skipped){
 
-//    private boolean step(Board board, Player p, Domino d) {
-//        if (bs.isEmpty(board)) {
-//            if (ds.isDouble(d)) {
-//                bs.addToStart(board, d);
-//                return true;
-//            }
-//        } else {
-//
-//            Domino firstDomino = board.getDominoes().getFirst();
-//            Domino lastDomino = board.getDominoes().getLast();
-//
-//            if (!ds.isDouble(lastDomino)) {
-//                if (d.compareTo(lastDomino) == 12) {
-//                    bs.addToEnd(board, d);
-//                    return true;
-//                } else if (d.compareTo(lastDomino) == 21) {
-//                    d.reverse();
-//                    bs.addToEnd(board, d);
-//
-//                    return true;
-//                }
-//            } else {
-//                if (d.compareTo(lastDomino) == 11){
-//                    bs.addToEnd(board, d);
-//
-//                    return true;
-//                } else if(d.compareTo(lastDomino) == 22){
-//                    d.reverse();
-//                    bs.addToEnd(board, d);
-//
-//                    return true;
-//                }
-//            }
-//
-//            if (!ds.isDouble(firstDomino)) {
-//                if (d.compareTo(firstDomino) == 21) {
-//                    bs.addToStart(board, d);
-//
-//                    return true;
-//                } else if (d.compareTo(firstDomino) == 11) {
-//                    d.reverse();
-//                    bs.addToStart(board, d);
-//
-//                    return true;
-//                }
-//            } else {
-//                if (d.compareTo(firstDomino) == 11){
-//                    d.reverse();
-//                    bs.addToStart(board, d);
-//
-//                    return true;
-//                } else if(d.compareTo(firstDomino) == 22){
-//                    bs.addToStart(board, d);
-//
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//
-//    }
 
+        if (!skipped) {
+            playerService.removeDomino(p, addedDomino);
+            System.out.println(" Игрок" + " \033[1m" + p.getName() + "\u001B[0m" + " ходит");
+        } else {
+            System.out.println(numOfSteps + " ход: " + " Игрок: " + " \033[1m" + p.getName() + "\u001B[0m" +  " пропустил ход");
+
+        }
+        System.out.println("\u001B[34m " + board.toString()  + "\u001B[0m");
+        System.out.println("____________");
+    }
+
+    private void whoWon(List<Player> players){
+        int min = 8;
+        Player wonPlayer = null;
+        for (Player p: players) {
+            if(p.getDominoInHand().size() < min){
+                min = p.getDominoInHand().size();
+                wonPlayer = p;
+            }
+        }
+
+        System.out.println("\u001B[31m Игрок " + wonPlayer.getName() + " победил!" + "\u001B[0m");
+    }
 
     private int firstStep(ArrayList<Player> players) {
-        //ArrayList<Player> sortedPlayers = new ArrayList<>();
-        List<Domino> dominoInHand = new ArrayList<>();
+        List<Domino> dominoInHand;
 
         for (int i = 0; i < players.size(); i++) {
             dominoInHand = players.get(i).getDominoInHand();
