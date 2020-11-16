@@ -1,10 +1,10 @@
-package com.company;
+package com.company.objects;
 
 import com.company.objects.Board;
+import com.company.objects.Pack;
 import com.company.objects.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
 

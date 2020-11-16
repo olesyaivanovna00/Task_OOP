@@ -9,8 +9,18 @@ public class BoardService {
         return board.getDominoes().isEmpty();
     }
 
-    public void addDomino(Board board, Domino d){
-        board.getDominoes().add(d);
+
+
+    public void addToStart(Board board, Domino domino){
+        board.getDominoes().addFirst(domino);
+    }
+
+    public void addToEnd(Board board, Domino domino){
+        board.getDominoes().addLast(domino);
+    }
+
+    public void playedDomino(Board board, Domino domino){
+        board.getDominoes().remove(domino);
     }
 
 }
