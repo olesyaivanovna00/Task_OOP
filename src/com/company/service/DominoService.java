@@ -8,9 +8,6 @@ public class DominoService {
         return d.getBone1() == d.getBone2();
     }
 
-    public int getTotalValue(Domino d){
-        return d.getBone1() + d.getBone2();
-    }
 
     /**
      * @param d1 - первый элемент

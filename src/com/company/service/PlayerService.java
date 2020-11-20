@@ -28,15 +28,7 @@ public class PlayerService {
         return player.getDominoInHand().contains(domino);
     }
 
-//
-//    public boolean hasPlay(Player player, int side){
-//        for (Domino domInHand : dominoInHand){
-//            if( (side == domInHand.getBone1()) || (side == domInHand.getBone2()) ){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+
 
 
 }
